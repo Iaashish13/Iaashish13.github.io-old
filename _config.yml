@@ -16,10 +16,9 @@
 title: Aashish's Blog
 email:
 description: >- # this means to ignore newlines until "baseurl:"
-I am tech enthusiastic.I love to devlop apps for various platforms.Apart from this, I love to play FPS games and watch soccer.
 twitter_username: jungali_op
 github_username: Iaashish13
-minimal_mistakes_skin: mint
+minimal_mistakes_skin: air
 search: true
 
 # Build settings
@@ -57,7 +56,7 @@ plugins:
 
 author:
   name   : "Aashish Regmi"
-  avatar : "/assets/images/bio-photo.png"
+  avatar : "/assets/images/bio-photo1.png"
   bio    : "Grinding Flutter"
   links:
     - label: "Website"

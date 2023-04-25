@@ -16,7 +16,7 @@
 title: Aashish's Blog
 email:
 description: >- # this means to ignore newlines until "baseurl:"
-twitter_username: jungali_op
+twitter_username: Iaashish13
 github_username: Iaashish13
 minimal_mistakes_skin: air
 search: true
@@ -64,7 +64,7 @@ author:
       url: "https://aashishregmi.com.np"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/jungali_op"
+      url: "https://twitter.com/Iaahish13"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/"

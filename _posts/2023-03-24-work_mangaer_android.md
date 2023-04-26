@@ -7,6 +7,8 @@ author_profile: false
 
 # How to run Flutter in the background?
 
+
+
 **WorkManager** provides an easy-to-use API where you can define:
 
 - If a background job should run **once**, or **periodically**
@@ -125,13 +127,15 @@ throw Exception(
 
 As sending **inputData** parameters only takes primitive types int,bool,string and array. But note that array also need primitive types like list of array of string. Then send data by calling function in like place order button.
 
-Then if you have gone through workmanger package it will  guide about initializing the package. If not here is what 
+**BackoffPolicy** In above code you have seen.It is the recurring event after first time the function has been called.After how much time it should be executed. You can also supply **constraints** like when to call function like when network is 
+connected.
+
+Then if you have gone through workmanger package it will guide about initializing the package. If not here is what 
 initializtion on our code looks like.
 
 ```dart
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:app/app.dart';
 import 'package:app/common/common.dart';
 import 'package:app/core/core.dart';
@@ -149,6 +153,7 @@ void callbackDispatcher() {
     switch (task) {
       case mySimpleTask:
         try {
+          
           await Firebase.initializeApp();
           await initApp();
           log("this method was called from native!");
@@ -195,13 +200,25 @@ Future<void> main() async {
   );
 }
 ```
+In above code in **switch case statement** of **try block** you can see i am initalizing **firebase** and **init** function which contains injectors of the app.
 
-Here In this code main.dart .. I am getting inputData that I have converted into json.
+#### Why i am initializing firebase and service locators or init function?
+You can see i am calling api request which need authorization token and of course for that http request **dio** in my 
+case needs to be initialized and also the cart items which i have saved offline as I said before are there. That is the 
+reason I am calling them.
 
-Then now I will decode it like when we do in calling http requests. Then send data to api.
 
-Note: The main part is here that you must not miss. For api calls and repo layer . I am using
+After that you can see there I am decoding the json that I have sent from **Place Order** and also I am returning 
+**Future.value(true)** which indicates sucess and in other case i am returning it **false**.
 
-get it as dependency injection. repo layer depends on dio and all to get all the things like bearer token or to hit api  i will call Firebase.initalize App().
+**Note**: You may not get instant notification.In andorid you can see notification or register this type of task only after **15 mins** this is all controlled by android system whereas for your info in **ios** it is said to be **30 mins*
+but you can debug through simultor in Xcode. I will write seprate tutorial for that
 
-After this in android I am successfully gettin the code.
+With this you can sucessfully call any task whether it is **periodic** or **oneOff**.
+You can learn more about workmanager in its documentation. 
+
+I am writing this blog because you can have overview of my work  and documentation contains basic examples which are enough but with this you can have quick idea about initializing app,dependencies and how we can pass other types of data rather than primitive types.
+
+I will try to write it for ios soon.
+
+

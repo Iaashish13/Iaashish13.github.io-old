@@ -1,11 +1,11 @@
 ---
-title: "Workmanager Flutter"
+title: "Run Background tasks in Flutter"
 categories:
   - blog
 author_profile: false
 ---
 
-# How to run Flutter in the background?
+## How to run Flutter in the background?
 
 
 
@@ -79,13 +79,13 @@ In my app there you can order even if you are offline.Basically the scenario i a
 - When user orders We have to order all the cart items he had loaded in cart.
 - Then user can terminate app from background.
 
-The main goal here is to if he even **terminates app** we gonna place order which means we gonna do **api call**. 
+The main goal here is to even if he  **terminates app** we gonna place order which means we gonna do **api call**. 
 Let's jump to that part.
 
 Here I will show you  registering one task : 
 
 In my cart service you can see I am checking the internet connection if it has i am gonna do normal order.
-Otherwise I am gonna 
+Otherwise I am gonna do register task to do offline order.
 
 ```dart
 Future<Either<Failure, void>> placeOrder(Iterable<CartItem> cartItems, String orgId) async {
@@ -118,14 +118,14 @@ Future<Either<Failure, void>> placeOrder(Iterable<CartItem> cartItems, String or
   }
 ```
 
-**Note:**  Here you can’t send cart items list.That is why I am using **jsonEncode** function to convert it into string of json. If you don't use this you  will get exception like:
+**Note:**  From above code, you can’t send cart items list.That is why I am using **jsonEncode** function to convert it into string of json. If you don't use this you  will get exception like:
 
 ```dart
 throw Exception(
               "argument $key has wrong type. WorkManager supports only int, bool, double, String and their list");
 ```
 
-As sending **inputData** parameters only takes primitive types int,bool,string and array. But note that array also need primitive types like list of array of string. Then send data by calling function in like place order button.
+As sending **inputData** parameters only takes primitive types int,bool,string and array. But note that array also need primitive types like list of array of string. So inorder to solve this issuse i amd converting my cart list to **json**. Then send data by calling function in like place order button.
 
 **BackoffPolicy** In above code you have seen.It is the recurring event after first time the function has been called.After how much time it should be executed. You can also supply **constraints** like when to call function like when network is 
 connected.
@@ -200,7 +200,9 @@ Future<void> main() async {
   );
 }
 ```
-In above code in **switch case statement** of **try block** you can see i am initalizing **firebase** and **init** function which contains injectors of the app.
+The code defines a task named "**addWithData"** using the constant **mySimpleTask**. The callbackDispatcher function is marked with the **@pragma('vm:entry-point')** annotation, which is required for the Dart code to be called from the **native code**. The callbackDispatcher function is called when the WorkManager starts the defined task, and it takes in two parameters - task and inputData.
+
+In **switch case statement** of **try block** you can see i am initalizing **firebase** and **init** function which contains injectors of the app.
 
 #### Why i am initializing firebase and service locators or init function?
 You can see i am calling api request which need authorization token and of course for that http request **dio** in my 
@@ -211,14 +213,16 @@ reason I am calling them.
 After that you can see there I am decoding the json that I have sent from **Place Order** and also I am returning 
 **Future.value(true)** which indicates sucess and in other case i am returning it **false**.
 
-**Note**: You may not get instant notification.In andorid you can see notification or register this type of task only after **15 mins** this is all controlled by android system whereas for your info in **ios** it is said to be **30 mins*
+**Note**: You may not get instant notification.In andorid you can see notification or register this type of task only after **15 mins** this is all controlled by android system whereas for your info in **ios** it is said to be **30 mins**
 but you can debug through simultor in Xcode. I will write seprate tutorial for that
 
-With this you can sucessfully call any task whether it is **periodic** or **oneOff**.
+With this you can sucessfully call any task whether it is **periodic** or **oneff**.
 You can learn more about workmanager in its documentation. 
 
 I am writing this blog because you can have overview of my work  and documentation contains basic examples which are enough but with this you can have quick idea about initializing app,dependencies and how we can pass other types of data rather than primitive types.
 
 I will try to write it for ios soon.
+
+**Thank you for reading! Happy coding!!**
 
 
